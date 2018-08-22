@@ -47,11 +47,12 @@ You can run these commands inside the /auth folder. Then, copy the files that ng
 
 You'll need to give these to nginx (place them in docker/web/auth, the dockerfile will do the rest):
 - dhparam.pem
-- ca.key 
+- ca.crt
 - server.crt
 - server.key
 
 You'll need to give these to your clients:
+- ca.crt
 - client.key + client.csr
 - (or) client.p12
 
@@ -61,7 +62,7 @@ your keychain/firefos/client software, you'll need the p12 file.
 - you can remove the -des3 from the commands above if you don't want to use passphrases in your files.
 
 
-After [configuring nginx](_blank), your client should be able to acess the service. Anyone else (or the client without the certificates) should get a **400 - No required SSL certificate was sent** error.
+After [configuring nginx](https://github.com/dataloudlabs/docker-client-ssl/blob/master/docker/web/confs/nodeapi.conf), your client should be able to acess the service. Anyone else (or the client without the certificates) should get a **400 - No required SSL certificate was sent** error.
 
 # In order to run the containers
 
@@ -80,7 +81,7 @@ After [configuring nginx](_blank), your client should be able to acess the servi
     docker-compose down
 
 
-§# Test
+# Test
 
 In order to test the configuration, in your client, you can use curl...
 
