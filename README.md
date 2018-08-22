@@ -8,6 +8,11 @@ The Nginx server is configured to use ssl...
   ...and to authenticate its clients.
 
 
+**Disclaimer**
+This is an example repo. Note that the **commands below generate the files WITHOUT passphrases**.
+You should look into using the -des3 option and adding the *ssl_password_file* directive to the nginx config.
+
+
 # Creating the keys and certificates 
 
 **for both the server and an example client**
@@ -17,18 +22,18 @@ Taken from [here](https://www.djouxtech.net/posts/nginx-client-certificate-authe
 You can run these commands inside the /auth folder. Then, copy the files that nginx needs into docker/web/auth.
 
 #### Create the CA Key and Certificate for signing Client Certs
-    openssl genrsa -des3 -out ca.key 4096
+    openssl genrsa -out ca.key 4096 # add -des3 to give the file a password
     openssl req -new -x509 -days 365 -key ca.key -out ca.crt
 
 #### Create the Server Key, CSR, and Certificate
-    openssl genrsa -des3 -out server.key 1024
+    openssl genrsa -out server.key 1024 # add -des3 to give the file a password
     openssl req -new -key server.key -out server.csr
 
 #### We're self signing our own server cert here.  This is a no-no in production.
     openssl x509 -req -days 365 -in server.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out server.crt
 
 #### Create the Client Key and CSR
-    openssl genrsa -des3 -out client.key 1024
+    openssl genrsa -out client.key 1024 # add -des3 to give the file a password
     openssl req -new -key client.key -out client.csr
 
 #### Sign the client certificate with our CA cert.  Unlike signing our own server cert, this is what we want to do.
