@@ -68,6 +68,8 @@ After [configuring nginx](https://github.com/dataloudlabs/docker-client-ssl/blob
 
 **(you need to be inside the /docker directory)**
 
+**(also, make sure to change the /docker/web/confs/nodeapi.conf file to suit your domain)**
+
 #### You'll need to build the containers first (also, run this ever time you make ANY changes inside the /docker directory)
     docker-compose build --pull;
 
